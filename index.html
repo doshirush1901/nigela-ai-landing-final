@@ -1229,6 +1229,32 @@
 
         // Download CSV file for this signup
         function downloadSignupCSV(signupData) {
+            // Get all existing signups
+            const allSignups = JSON.parse(localStorage.getItem('nigela_beta_signups') || '[]');
+            
+            // Create CSV with all signups (not just current one)
+            const csvContent = 'Email,Timestamp,Source,Location,UserAgent\n' + 
+                allSignups.map(s => `${s.email},${s.timestamp},${s.source},${s.location},"${s.userAgent}"`).join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            // Save to Nigela folder with descriptive name
+            a.download = `nigela_beta_signups_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            console.log('CSV file downloaded with all signups (', allSignups.length, 'total) for Nigela folder');
+            
+            // Also create a backup with individual signup
+            createIndividualSignupFile(signupData);
+        }
+
+        // Create individual signup file as backup
+        function createIndividualSignupFile(signupData) {
             const csvLine = `${signupData.email},${signupData.timestamp},${signupData.source},${signupData.location},"${signupData.userAgent}"`;
             const csvContent = 'Email,Timestamp,Source,Location,UserAgent\n' + csvLine;
             
@@ -1236,13 +1262,11 @@
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `nigela_signup_${signupData.timestamp.split('T')[0]}_${signupData.timestamp.split('T')[1].split('.')[0].replace(/:/g, '-')}.csv`;
+            a.download = `nigela_individual_${signupData.timestamp.split('T')[0]}_${signupData.timestamp.split('T')[1].split('.')[0].replace(/:/g, '-')}.csv`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
-            
-            console.log('CSV file downloaded for:', signupData.email);
         }
 
         // Try Google Sheets submission (non-blocking)
