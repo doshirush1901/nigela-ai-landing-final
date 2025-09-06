@@ -451,6 +451,61 @@
             text-decoration: underline;
         }
 
+        /* Unique Features Section */
+        .unique-features {
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: calc(var(--spacing-unit) * 2);
+        }
+
+        .feature-highlight {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 2);
+            padding: calc(var(--spacing-unit) * 2);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background: var(--color-surface);
+            transition: all 0.2s ease;
+        }
+
+        .feature-highlight:hover {
+            border-color: var(--color-primary);
+            background: var(--color-background);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+            background: var(--color-background);
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 2px;
+        }
+
+        .feature-desc {
+            font-size: 10px;
+            color: var(--color-secondary);
+            line-height: 1.3;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .container {
@@ -489,6 +544,22 @@
 
             .phone-overlay {
                 display: none;
+            }
+
+            .unique-features {
+                grid-template-columns: 1fr;
+                gap: calc(var(--spacing-unit));
+                margin-bottom: calc(var(--spacing-unit) * 3);
+            }
+
+            .feature-highlight {
+                padding: calc(var(--spacing-unit) * 1.5);
+            }
+
+            .feature-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
             }
 
             .email-button {
@@ -550,11 +621,11 @@
                                     </div>
 
                                     <div class="metrics-box">
-                                        <div class="metrics-title">AI-Powered Nutrition Intelligence</div>
-                                        <div class="metric-item">🌱 Carbon Impact: 1.7kg CO₂ (47% reduction vs standard 3.2kg)</div>
-                                        <div class="metric-item">🛡️ Immunity Boost: +180% Vitamin C, +95% Zinc for children</div>
-                                        <div class="metric-item">⚖️ Weight Management: 1,850 cal (Parents), 1,650 cal (Kids)</div>
-                                        <div class="metric-item">🧘 Satvik Principles: Plant-forward, energizing, mindful eating</div>
+                                        <div class="metrics-title">Unique AI Features</div>
+                                        <div class="metric-item">🔄 Daily Variation: Never the same day twice</div>
+                                        <div class="metric-item">🎯 Perfect Structure: 6 lunch + 5 dinner items</div>
+                                        <div class="metric-item">🎉 Weekend Fusion: Pizza, burgers, international</div>
+                                        <div class="metric-item">👁️ Video Matching: Exact recipe tutorials</div>
                                     </div>
 
                                     <div class="menu-table">
@@ -574,37 +645,30 @@
                                             <div class="menu-cell carbon">0.1kg</div>
                                         </div>
                                         <div class="menu-row">
-                                            <div class="menu-cell meal-icon">🍛 LUNCH</div>
-                                            <div class="menu-cell">Satvik Buddha Bowl with Tahini (20min)</div>
-                                            <div class="menu-cell carbon">0.8kg</div>
+                                            <div class="menu-cell meal-icon">🍛 LUNCH (6 items)</div>
+                                            <div class="menu-cell">🫘 Punjabi Dal • 🥬 Bhindi Masala • 🍚 Mint Rice • 🫓 Jowar Roti • 🟡 Bhel Puri • 🥗 Sprout Salad</div>
+                                            <div class="menu-cell carbon">1.2kg</div>
                                         </div>
                                         <div class="menu-row">
-                                            <div class="menu-cell meal-icon">☕ SNACK</div>
-                                            <div class="menu-cell">Golden Turmeric Latte & Dates (5min)</div>
+                                            <div class="menu-cell meal-icon">☕ EVENING SNACK</div>
+                                            <div class="menu-cell">🧀 Air-Fried Paneer Tikka (15min)</div>
                                             <div class="menu-cell carbon">0.1kg</div>
                                         </div>
                                         <div class="menu-row">
-                                            <div class="menu-cell meal-icon">🍽️ DINNER</div>
-                                            <div class="menu-cell">Plant-Based Khichdi with Ghee (30min)</div>
-                                            <div class="menu-cell carbon">0.4kg</div>
+                                            <div class="menu-cell meal-icon">🍽️ DINNER (5 items)</div>
+                                            <div class="menu-cell">🍚 Jeera Rice • 🫓 Paneer Paratha • 🥬 Bottle Gourd Kofta • 🍲 Spinach Soup • 🥗 Cucumber Salad</div>
+                                            <div class="menu-cell carbon">0.8kg</div>
                                         </div>
                                     </div>
 
                                     <div class="metrics-box">
-                                        <div class="metrics-title">AI Database Sources</div>
-                                        <div class="metric-item">📚 2.3M Recipes analyzed from 1,247 premium cookbooks</div>
-                                        <div class="metric-item">🔬 Real-time Nutrition APIs and Carbon Footprint databases</div>
-                                        <div class="metric-item">🎥 50K+ YouTube videos curated by machine learning</div>
-                                        <div class="metric-item">📊 XLS APIs for dynamic meal rotation and optimization</div>
+                                        <div class="metrics-title">🌙 Tonight's Preparation</div>
+                                        <div class="metric-item">🫘 Soak toor dal (200g) with gratitude</div>
+                                        <div class="metric-item">🥥 Fresh coconut ready for chutney</div>
+                                        <div class="metric-item">🛒 Grocery list: 12 items for tomorrow</div>
+                                        <div class="metric-item">👩‍🍳 Nigella's cooking wisdom included</div>
                                     </div>
 
-                                    <div class="metrics-box">
-                                        <div class="metrics-title">Tomorrow's Sacred Preparation</div>
-                                        <div class="metric-item">🌙 Soak chickpeas (200g) with gratitude and intention</div>
-                                        <div class="metric-item">🥥 Keep fresh coconut ready for morning chutney</div>
-                                        <div class="metric-item">🌿 Prepare warming spice mix (turmeric, ginger, cumin)</div>
-                                        <div class="metric-item">💭 Set mindful intention for nourishing meals ahead</div>
-                                    </div>
 
                                     <div class="email-signature">
                                         In the end, the best meals are not about what you cook, but about the care with which you cook it - and the joy with which you share it.<br><br>
@@ -675,25 +739,75 @@
         <div class="info-section">
             <div class="brand-title fade-in">Nigela AI</div>
             <div class="brand-subtitle fade-in">
-                Carbon-conscious satvik meal planning powered by the world's largest recipe database and advanced AI optimization.
+                Carbon-conscious satvik meal planning powered by 198+ recipes, 5 meal structures, and AI optimization for infinite variety.
+            </div>
+
+            <div class="unique-features fade-in">
+                <div class="feature-highlight">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Daily Variation</div>
+                        <div class="feature-desc">Never the same day twice</div>
+                    </div>
+                </div>
+                
+                <div class="feature-highlight">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Perfect Structure</div>
+                        <div class="feature-desc">6 lunch + 5 dinner items</div>
+                    </div>
+                </div>
+                
+                <div class="feature-highlight">
+                    <div class="feature-icon">🎉</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Weekend Fusion</div>
+                        <div class="feature-desc">Pizza, burgers, international</div>
+                    </div>
+                </div>
+                
+                <div class="feature-highlight">
+                    <div class="feature-icon">🥜</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Enhanced Snacks</div>
+                        <div class="feature-desc">Baked + air-fried options</div>
+                    </div>
+                </div>
+                
+                <div class="feature-highlight">
+                    <div class="feature-icon">👁️</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Video Matching</div>
+                        <div class="feature-desc">Exact recipe tutorials</div>
+                    </div>
+                </div>
+                
+                <div class="feature-highlight">
+                    <div class="feature-icon">🛒</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Smart Grocery</div>
+                        <div class="feature-desc">Auto-generated lists</div>
+                    </div>
+                </div>
             </div>
 
             <div class="key-metrics fade-in">
                 <div class="metric-row">
                     <div class="metric-label">Recipe Database</div>
-                    <div class="metric-value">2.3M Recipes</div>
+                    <div class="metric-value">198+ Active</div>
                 </div>
                 <div class="metric-row">
-                    <div class="metric-label">Carbon Reduction</div>
-                    <div class="metric-value">-47%</div>
+                    <div class="metric-label">Daily Combinations</div>
+                    <div class="metric-value">56B+ Possible</div>
                 </div>
                 <div class="metric-row">
-                    <div class="metric-label">Video Library</div>
-                    <div class="metric-value">50K+ Curated</div>
+                    <div class="metric-label">No Repeat Period</div>
+                    <div class="metric-value">14 Days</div>
                 </div>
                 <div class="metric-row">
-                    <div class="metric-label">Family Health</div>
-                    <div class="metric-value">Personalized</div>
+                    <div class="metric-label">Meal Structures</div>
+                    <div class="metric-value">5 Types</div>
                 </div>
             </div>
 
