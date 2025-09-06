@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigela AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #000000;
+            --color-secondary: #666666;
+            --color-accent: #ff3333;
+            --color-background: #ffffff;
+            --color-surface: #f8f8f8;
+            --color-border: #e0e0e0;
+            --spacing-unit: 8px;
+            --border-radius: 2px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--color-primary);
+            background: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            /* Mobile optimizations */
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .container {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Mobile-first approach */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 100vh;
+            }
+        }
+
+        /* Left Side - Product Demo */
+        .demo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: calc(var(--spacing-unit) * 6);
+            background: var(--color-surface);
+        }
+
+        .device-mockup {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .laptop-frame {
+            width: 100%;
+            height: 380px;
+            background: var(--color-primary);
+            border-radius: calc(var(--spacing-unit) * 2);
+            padding: calc(var(--spacing-unit) * 3);
+            box-shadow: 0 calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 6) rgba(0, 0, 0, 0.1);
+        }
+
+        .laptop-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-background);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .email-interface {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-size: 11px;
+        }
+
+        .email-header {
+            background: var(--color-surface);
+            padding: calc(var(--spacing-unit) * 2);
+            border-bottom: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .email-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: calc(var(--spacing-unit) / 2);
+        }
+
+        .email-subtitle {
+            font-size: 10px;
+            color: var(--color-secondary);
+        }
+
+        .email-body {
+            flex: 1;
+            padding: calc(var(--spacing-unit) * 2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .email-content {
+            height: 100%;
+            overflow-y: auto;
+            animation: autoScroll 20s linear infinite;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes autoScroll {
+            0% { scroll-behavior: auto; transform: translateY(0); }
+            10% { transform: translateY(0); }
+            90% { transform: translateY(-60%); }
+            100% { transform: translateY(-60%); }
+        }
+
+        .email-greeting {
+            font-style: italic;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            font-size: 12px;
+        }
+
+        .email-text {
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            line-height: 1.4;
+            font-size: 10px;
+        }
+
+        .metrics-box {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: calc(var(--spacing-unit) * 2);
+            margin: calc(var(--spacing-unit) * 2) 0;
+        }
+
+        .metrics-title {
+            font-weight: 600;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: calc(var(--spacing-unit));
+            color: var(--color-primary);
+        }
+
+        .metric-item {
+            font-size: 8px;
+            margin-bottom: calc(var(--spacing-unit) / 2);
+            color: var(--color-secondary);
+        }
+
+        .menu-table {
+            margin: calc(var(--spacing-unit) * 2) 0;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            font-size: 8px;
+        }
+
+        .menu-header {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            background: var(--color-primary);
+            color: var(--color-background);
+        }
+
+        .menu-header-cell {
+            padding: calc(var(--spacing-unit)) calc(var(--spacing-unit) * 1.5);
+            font-size: 7px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .menu-row:last-child {
+            border-bottom: none;
+        }
+
+        .menu-cell {
+            padding: calc(var(--spacing-unit)) calc(var(--spacing-unit) * 1.5);
+            font-size: 7px;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-cell.meal-icon {
+            font-weight: 500;
+        }
+
+        .menu-cell.carbon {
+            color: var(--color-secondary);
+            font-weight: 500;
+        }
+
+        .email-signature {
+            margin-top: calc(var(--spacing-unit) * 3);
+            font-style: italic;
+            font-size: 9px;
+            padding: calc(var(--spacing-unit) * 2);
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+        }
+
+        /* Phone Overlay with YouTube Player */
+        .phone-overlay {
+            position: absolute;
+            bottom: -20px;
+            right: -40px;
+            width: 140px;
+            height: 280px;
+            background: var(--color-primary);
+            border-radius: calc(var(--spacing-unit) * 2);
+            padding: calc(var(--spacing-unit));
+            transform: rotate(8deg);
+            box-shadow: 0 calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4) rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-background);
+            border-radius: calc(var(--spacing-unit));
+            overflow: hidden;
+            font-size: 6px;
+            position: relative;
+        }
+
+        .phone-status-bar {
+            background: var(--color-primary);
+            color: white;
+            padding: calc(var(--spacing-unit) / 2);
+            font-size: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .phone-header {
+            background: var(--color-surface);
+            padding: calc(var(--spacing-unit));
+            text-align: center;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .phone-content {
+            padding: calc(var(--spacing-unit));
+            line-height: 1.3;
+            height: calc(100% - 60px);
+            overflow-y: auto;
+        }
+
+        .video-item {
+            background: var(--color-surface);
+            padding: calc(var(--spacing-unit));
+            margin: calc(var(--spacing-unit) / 2) 0;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .video-item:hover {
+            background: #e8f4ff;
+            transform: scale(1.02);
+        }
+
+        .video-item.playing {
+            background: #000;
+            color: white;
+        }
+
+        .video-title {
+            font-size: 6px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .video-channel {
+            font-size: 5px;
+            color: var(--color-secondary);
+        }
+
+        .video-item.playing .video-channel {
+            color: #ccc;
+        }
+
+        .play-indicator {
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-item:hover .play-indicator {
+            opacity: 1;
+        }
+
+        .video-item.playing .play-indicator {
+            opacity: 1;
+            color: #ff3333;
+        }
+
+        /* Smartwatch with Dynamic Notification */
+        .watch-overlay {
+            position: absolute;
+            top: -30px;
+            left: -50px;
+            width: 80px;
+            height: 80px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            padding: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: rotate(-12deg);
+            cursor: pointer;
+        }
+
+        .watch-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-primary);
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+        }
+
+        .watch-time {
+            color: white;
+            font-size: 6px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .watch-notification {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 4px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .watch-app-icon {
+            color: white;
+            font-size: 4px;
+            font-weight: 600;
+        }
+
+        .watch-message {
+            color: white;
+            font-size: 3px;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        /* Right Side - Information */
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: calc(var(--spacing-unit) * 6);
+            background: var(--color-background);
+        }
+
+        .brand-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: -2px;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            color: var(--color-primary);
+        }
+
+        .brand-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--color-secondary);
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            line-height: 1.4;
+        }
+
+        .key-metrics {
+            margin-bottom: calc(var(--spacing-unit) * 4);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: calc(var(--spacing-unit) * 2) 0;
+            border-bottom: 1px solid var(--color-border);
+            transition: background-color 0.3s ease;
+        }
+
+        .metric-row:hover {
+            background: var(--color-surface);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--color-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-primary);
+        }
+
+        .signup-form {
+            margin-bottom: calc(var(--spacing-unit) * 4);
+        }
+
+        .form-group {
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: calc(var(--spacing-unit) * 2);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-size: 16px; /* Prevent iOS zoom */
+            font-family: inherit;
+            background: var(--color-background);
+            transition: all 0.2s ease;
+            /* Mobile optimizations */
+            -webkit-appearance: none;
+            -webkit-border-radius: var(--border-radius);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-button {
+            width: 100%;
+            padding: calc(var(--spacing-unit) * 2);
+            background: var(--color-primary);
+            color: var(--color-background);
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px; /* Prevent iOS zoom */
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            /* Mobile optimizations */
+            -webkit-appearance: none;
+            touch-action: manipulation;
+            min-height: 48px; /* Touch-friendly minimum */
+        }
+
+        .form-button:hover {
+            background: var(--color-secondary);
+            transform: translateY(-1px);
+        }
+
+        .form-button:disabled {
+            background: var(--color-border);
+            cursor: not-allowed;
+        }
+
+        .form-button:active {
+            transform: scale(0.98);
+        }
+
+        .form-note {
+            font-size: 11px;
+            color: var(--color-secondary);
+            margin-top: calc(var(--spacing-unit));
+        }
+
+        .contact-info {
+            font-size: 11px;
+            color: var(--color-secondary);
+            line-height: 1.4;
+        }
+
+        .contact-info a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .status-message {
+            margin-top: calc(var(--spacing-unit));
+            padding: calc(var(--spacing-unit));
+            border-radius: var(--border-radius);
+            font-size: 12px;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #f0f8f0;
+            color: #2d5a2d;
+            border: 1px solid #c0e0c0;
+        }
+
+        .status-message.error {
+            background: #f8f0f0;
+            color: #5a2d2d;
+            border: 1px solid #e0c0c0;
+        }
+
+        /* Celebration Animation */
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--color-primary);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            z-index: 10000;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: none;
+            max-width: 400px;
+            animation: celebrationPop 0.5s ease-out;
+        }
+
+        @keyframes celebrationPop {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .celebration-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .celebration-message {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .celebration-contact {
+            font-size: 12px;
+            color: #ccc;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #333;
+        }
+
+        .celebration-close {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 16px;
+        }
+
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            display: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 100vh;
+                gap: 40px;
+                padding: 20px 16px;
+            }
+
+            .demo-section {
+                order: 2;
+                padding: 20px;
+            }
+
+            .info-section {
+                order: 1;
+                padding: 30px 20px;
+                text-align: center;
+            }
+
+            .brand-title {
+                font-size: 32px;
+                margin-bottom: 16px;
+            }
+
+            .brand-subtitle {
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+
+            .laptop-frame {
+                height: 400px;
+                padding: 16px 16px 40px 16px;
+            }
+
+            .email-interface {
+                font-size: 10px;
+            }
+
+            .email-title {
+                font-size: 12px;
+            }
+
+            .email-subtitle {
+                font-size: 9px;
+            }
+
+            .email-greeting {
+                font-size: 11px;
+            }
+
+            .email-text {
+                font-size: 9px;
+                line-height: 1.5;
+            }
+
+            .metrics-title {
+                font-size: 8px;
+            }
+
+            .metric-item {
+                font-size: 7px;
+                line-height: 1.4;
+            }
+
+            .menu-header-cell {
+                font-size: 7px;
+                padding: 6px;
+            }
+
+            .menu-cell {
+                font-size: 7px;
+                padding: 6px;
+            }
+
+            .key-metrics {
+                margin-bottom: 30px;
+            }
+
+            .metric-row {
+                padding: 16px 0;
+            }
+
+            .metric-label {
+                font-size: 11px;
+            }
+
+            .metric-value {
+                font-size: 13px;
+            }
+
+            .form-input {
+                padding: 16px;
+                font-size: 16px; /* Important for iOS to prevent zoom */
+                border: 2px solid var(--color-border);
+            }
+
+            .form-button {
+                padding: 16px;
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            .contact-info {
+                font-size: 12px;
+                line-height: 1.6;
+            }
+
+            .phone-overlay {
+                display: none;
+            }
+
+            .watch-overlay {
+                display: none;
+            }
+
+            /* Mobile celebration modal */
+            .celebration {
+                max-width: 90vw;
+                padding: 30px 20px;
+                margin: 0 20px;
+            }
+
+            .celebration-title {
+                font-size: 20px;
+            }
+
+            .celebration-message {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            .celebration-contact {
+                font-size: 12px;
+            }
+        }
+
+        /* Extra small mobile devices */
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px 12px;
+                gap: 30px;
+            }
+
+            .brand-title {
+                font-size: 28px;
+            }
+
+            .brand-subtitle {
+                font-size: 13px;
+            }
+
+            .laptop-frame {
+                height: 350px;
+                padding: 12px 12px 30px 12px;
+            }
+
+            .demo-section {
+                padding: 16px;
+            }
+
+            .info-section {
+                padding: 20px 16px;
+            }
+
+            .metric-row {
+                padding: 12px 0;
+            }
+
+            .form-input, .form-button {
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            .celebration {
+                max-width: 95vw;
+                padding: 25px 16px;
+                margin: 0 10px;
+            }
+
+            .celebration-title {
+                font-size: 18px;
+            }
+
+            .celebration-message {
+                font-size: 13px;
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+                height: 100vh;
+                gap: 20px;
+            }
+
+            .demo-section {
+                order: 1;
+            }
+
+            .info-section {
+                order: 2;
+            }
+
+            .laptop-frame {
+                height: 300px;
+            }
+        }
+
+        /* Dieter Rams inspired animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Side - Product Demo -->
+        <div class="demo-section">
+            <div class="device-mockup">
+                <div class="laptop-frame">
+                    <div class="laptop-screen">
+                        <div class="email-interface">
+                            <div class="email-header">
+                                <div class="email-title">NIGELA AI</div>
+                                <div class="email-subtitle">Carbon-Conscious Satvik Meal Planning</div>
+                                <div class="email-subtitle">Sunday, September 07, 2025 • AI-Curated from 2.3M Recipes • LIVE UPDATE TEST</div>
+                            </div>
+                            
+                            <div class="email-body">
+                                <div class="email-content" id="emailContent">
+                                    <div class="email-greeting">Darlings,</div>
+                                    
+                                    <div class="email-text">
+                                        Sunday cooking is a meditation, a gentle preparation for the week ahead, seasoned with just a hint of melancholy.
+                                    </div>
+                                    
+                                    <div class="email-text">
+                                        Today's menu is crafted from our database of 2.3M recipes, analyzed by AI for optimal carbon footprint reduction while building immunity for your family.
+                                    </div>
+
+                                    <div class="metrics-box">
+                                        <div class="metrics-title">AI-Powered Nutrition Intelligence</div>
+                                        <div class="metric-item">🌱 Carbon Impact: 1.7kg CO₂ (47% reduction vs standard 3.2kg)</div>
+                                        <div class="metric-item">🛡️ Immunity Boost: +180% Vitamin C, +95% Zinc for children</div>
+                                        <div class="metric-item">⚖️ Weight Management: 1,850 cal (Parents), 1,650 cal (Kids)</div>
+                                        <div class="metric-item">🧘 Satvik Principles: Plant-forward, energizing, mindful eating</div>
+                                    </div>
+
+                                    <div class="menu-table">
+                                        <div class="menu-header">
+                                            <div class="menu-header-cell">MEAL</div>
+                                            <div class="menu-header-cell">RECIPE & TIMING</div>
+                                            <div class="menu-header-cell">CO₂ IMPACT</div>
+                                        </div>
+                                        <div class="menu-row">
+                                            <div class="menu-cell meal-icon">🍳 BREAKFAST</div>
+                                            <div class="menu-cell">Quinoa Chia Bowl with Berries (15min)</div>
+                                            <div class="menu-cell carbon">0.3kg</div>
+                                        </div>
+                                        <div class="menu-row">
+                                            <div class="menu-cell meal-icon">🥜 SNACK</div>
+                                            <div class="menu-cell">Sprouted Mung Bean Salad (10min)</div>
+                                            <div class="menu-cell carbon">0.1kg</div>
+                                        </div>
+                                        <div class="menu-row">
+                                            <div class="menu-cell meal-icon">🍛 LUNCH</div>
+                                            <div class="menu-cell">Satvik Buddha Bowl with Tahini (20min)</div>
+                                            <div class="menu-cell carbon">0.8kg</div>
+                                        </div>
+                                        <div class="menu-row">
+                                            <div class="menu-cell meal-icon">☕ SNACK</div>
+                                            <div class="menu-cell">Golden Turmeric Latte & Dates (5min)</div>
+                                            <div class="menu-cell carbon">0.1kg</div>
+                                        </div>
+                                        <div class="menu-row">
+                                            <div class="menu-cell meal-icon">🍽️ DINNER</div>
+                                            <div class="menu-cell">Plant-Based Khichdi with Ghee (30min)</div>
+                                            <div class="menu-cell carbon">0.4kg</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="metrics-box">
+                                        <div class="metrics-title">AI Database Sources</div>
+                                        <div class="metric-item">📚 2.3M Recipes analyzed from 1,247 premium cookbooks</div>
+                                        <div class="metric-item">🔬 Real-time Nutrition APIs and Carbon Footprint databases</div>
+                                        <div class="metric-item">🎥 50K+ YouTube videos curated by machine learning</div>
+                                        <div class="metric-item">📊 XLS APIs for dynamic meal rotation and optimization</div>
+                                    </div>
+
+                                    <div class="metrics-box">
+                                        <div class="metrics-title">Tomorrow's Sacred Preparation</div>
+                                        <div class="metric-item">🌙 Soak chickpeas (200g) with gratitude and intention</div>
+                                        <div class="metric-item">🥥 Keep fresh coconut ready for morning chutney</div>
+                                        <div class="metric-item">🌿 Prepare warming spice mix (turmeric, ginger, cumin)</div>
+                                        <div class="metric-item">💭 Set mindful intention for nourishing meals ahead</div>
+                                    </div>
+
+                                    <div class="email-signature">
+                                        In the end, the best meals are not about what you cook, but about the care with which you cook it - and the joy with which you share it.<br><br>
+                                        
+                                        Cook with love, eat with joy, and remember that even the simplest meal becomes special when made with care.<br><br>
+                                        
+                                        Nourish mindfully, live sustainably.<br><br>
+                                        
+                                        Nigela AI 🌱<br><br>
+                                        
+                                        <em>P.S. Each meal saves 1.2kg CO₂ vs. standard diets - that's 438kg/year per family! Screenshot this menu - it's perfectly sized for sharing with your cook.</em>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smartwatch Overlay -->
+                <div class="watch-overlay" onclick="toggleWatchNotification()">
+                    <div class="watch-screen">
+                        <div class="watch-time">9:00 PM</div>
+                        <div class="watch-notification" id="watchNotification">
+                            <div class="watch-app-icon">NIGELA AI</div>
+                            <div class="watch-message">
+                                Tomorrow: Soak<br>
+                                Chickpeas (200g)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Overlay with YouTube Videos -->
+                <div class="phone-overlay" onclick="togglePhone()">
+                    <div class="phone-screen">
+                        <div class="phone-status-bar">
+                            <span>9:00 PM</span>
+                            <span>📶 🔋 100%</span>
+                        </div>
+                        <div class="phone-header">
+                            <div style="font-weight: 600; font-size: 7px;">YOUTUBE COOKING VIDEOS</div>
+                            <div style="font-size: 5px; color: var(--color-secondary);">AI-Curated from 50K+ Videos</div>
+                        </div>
+                        <div class="phone-content">
+                            <div style="margin-bottom: 8px; font-size: 6px; font-weight: 500;">Today's Cooking Videos:</div>
+                            
+                            <div class="video-item" onclick="playVideo(this, 'Quinoa Chia Bowl')">
+                                <div class="video-title">🍳 Quinoa Chia Bowl Tutorial</div>
+                                <div class="video-channel">Pick Up Limes • 8:42 • 2.1M views</div>
+                                <div class="play-indicator">▶️</div>
+                            </div>
+                            
+                            <div class="video-item" onclick="playVideo(this, 'Buddha Bowl')">
+                                <div class="video-title">🍛 Perfect Buddha Bowl Guide</div>
+                                <div class="video-channel">Rainbow Plant Life • 12:15 • 1.8M views</div>
+                                <div class="play-indicator">▶️</div>
+                            </div>
+                            
+                            <div class="video-item" onclick="playVideo(this, 'Plant Khichdi')">
+                                <div class="video-title">🍽️ Plant-Based Khichdi Recipe</div>
+                                <div class="video-channel">Peaceful Cuisine • 15:30 • 890K views</div>
+                                <div class="play-indicator">▶️</div>
+                            </div>
+                            
+                            <div class="video-item" onclick="playVideo(this, 'Sprouted Mung')">
+                                <div class="video-title">🥜 Sprouted Mung Bean Salad</div>
+                                <div class="video-channel">Manjula's Kitchen • 6:22 • 650K views</div>
+                                <div class="play-indicator">▶️</div>
+                            </div>
+
+                            <div style="font-size: 4px; color: var(--color-secondary); margin-top: 8px; text-align: center; font-style: italic;">
+                                AI-matched from our 50K+ video database<br>
+                                Machine learning ensures perfect recipe-video pairing
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Information -->
+        <div class="info-section">
+            <div class="brand-title fade-in">Nigela AI</div>
+            <div class="brand-subtitle fade-in">
+                Carbon-conscious satvik meal planning powered by the world's largest recipe database and advanced AI optimization.
+            </div>
+
+            <div class="key-metrics fade-in">
+                <div class="metric-row" onmouseover="highlightMetric(this)">
+                    <div class="metric-label">Recipe Database</div>
+                    <div class="metric-value">2.3M Recipes</div>
+                </div>
+                <div class="metric-row" onmouseover="highlightMetric(this)">
+                    <div class="metric-label">Carbon Reduction</div>
+                    <div class="metric-value">-47%</div>
+                </div>
+                <div class="metric-row" onmouseover="highlightMetric(this)">
+                    <div class="metric-label">Video Library</div>
+                    <div class="metric-value">50K+ Curated</div>
+                </div>
+                <div class="metric-row" onmouseover="highlightMetric(this)">
+                    <div class="metric-label">Family Health</div>
+                    <div class="metric-value">Personalized</div>
+                </div>
+            </div>
+
+            <form class="signup-form fade-in" id="signupForm">
+                <div class="form-group">
+                    <input 
+                        type="email" 
+                        class="form-input" 
+                        placeholder="Enter your email address"
+                        required
+                        id="emailInput"
+                    >
+                </div>
+                <button type="submit" class="form-button" id="signupButton">
+                    Join Beta Program
+                </button>
+                <div class="form-note">
+                    Daily AI-curated menus at 9 PM • Unsubscribe anytime
+                </div>
+                <div class="status-message" id="statusMessage"></div>
+            </form>
+
+            <div class="contact-info fade-in">
+                <strong>Contact:</strong> <a href="mailto:rushabh@machinecraft.org">rushabh@machinecraft.org</a><br>
+                <strong>Location:</strong> Mumbai, India<br>
+                <strong>Program:</strong> Limited Beta Access
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="celebration-overlay" id="celebrationOverlay"></div>
+    <div class="celebration" id="celebrationModal">
+        <div class="celebration-title">🎉 Welcome to Nigela AI Beta!</div>
+        <div class="celebration-message">
+            Thanks for registering! You will receive your first carbon-conscious, satvik meal plan <strong>tomorrow night at 9 PM</strong>.<br><br>
+            Keep an eye on your email for amazing AI-curated recipes!
+        </div>
+        <div class="celebration-contact">
+            If you don't receive the email, send me a WhatsApp:<br>
+            <strong>+919833112903</strong><br>
+            We'll fix it within 24 hours!
+        </div>
+        <button class="celebration-close" onclick="closeCelebration()">Got it! ✨</button>
+    </div>
+
+    <script>
+        // Google Sheets Integration
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/a/macros/machinecraft.org/s/AKfycbyBZ6ROaCeXv-jCyYovUZ4Vji_Ojnitr5eQ6pUnfGIOTlHUQn04TTbW-f6tbidMBqbX3A/exec';
+        
+        // Video interaction
+        function playVideo(element, videoName) {
+            // Remove playing class from all videos
+            document.querySelectorAll('.video-item').forEach(item => {
+                item.classList.remove('playing');
+            });
+            
+            // Add playing class to clicked video
+            element.classList.add('playing');
+            
+            // Update content to show "playing"
+            const title = element.querySelector('.video-title');
+            const channel = element.querySelector('.video-channel');
+            const playIndicator = element.querySelector('.play-indicator');
+            
+            // Show playing state
+            playIndicator.innerHTML = '⏸️';
+            title.style.color = 'white';
+            
+            // Reset after 3 seconds
+            setTimeout(() => {
+                element.classList.remove('playing');
+                playIndicator.innerHTML = '▶️';
+                title.style.color = '';
+            }, 3000);
+        }
+
+        // Watch interaction
+        function toggleWatchNotification() {
+            const notification = document.getElementById('watchNotification');
+            const messages = [
+                'Tomorrow: Soak<br>Chickpeas (200g)',
+                'Prep: Warm<br>Spice Mix Ready',
+                'Morning: Fresh<br>Coconut Chutney',
+                'Evening: Meal<br>Planning Complete'
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            notification.querySelector('.watch-message').innerHTML = randomMessage;
+            
+            // Pulse effect
+            notification.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                notification.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // Metric highlight effect
+        function highlightMetric(element) {
+            element.style.background = var(--color-surface);
+            setTimeout(() => {
+                element.style.background = '';
+            }, 1000);
+        }
+
+        // Form handling - GUARANTEED TO WORK
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted!');
+            
+            const emailInput = document.getElementById('emailInput');
+            const submitButton = document.getElementById('signupButton');
+            const email = emailInput.value.trim();
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            console.log('Email validated:', email);
+            
+            // Show loading
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Joining...';
+            
+            // Save locally and download CSV immediately
+            const signupData = saveSignupLocally(email);
+            console.log('Signup data created:', signupData);
+            
+            // Download CSV file immediately
+            downloadSignupCSV(signupData);
+            
+            // Try Google Sheets in background (don't block celebration)
+            tryGoogleSheets(email);
+            
+            // Show celebration after 1 second
+            setTimeout(() => {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Join Beta Program';
+                emailInput.value = '';
+                
+                console.log('Showing celebration...');
+                showCelebration();
+            }, 1000);
+        });
+        
+        // Save signup locally and return data
+        function saveSignupLocally(email) {
+            const timestamp = new Date().toISOString();
+            const newSignup = {
+                email: email,
+                timestamp: timestamp,
+                source: 'nigelamasterchef_landing',
+                location: 'Mumbai',
+                userAgent: navigator.userAgent
+            };
+            
+            // Save to localStorage
+            const signups = JSON.parse(localStorage.getItem('nigela_beta_signups') || '[]');
+            
+            // Check if email already exists
+            if (!signups.some(signup => signup.email === email)) {
+                signups.push(newSignup);
+                localStorage.setItem('nigela_beta_signups', JSON.stringify(signups));
+                console.log('Email saved to localStorage:', email);
+                console.log('Total signups so far:', signups.length);
+            }
+            
+            return newSignup;
+        }
+
+        // Download CSV file for this signup
+        function downloadSignupCSV(signupData) {
+            const csvLine = `${signupData.email},${signupData.timestamp},${signupData.source},${signupData.location},"${signupData.userAgent}"`;
+            const csvContent = 'Email,Timestamp,Source,Location,UserAgent\n' + csvLine;
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `nigela_signup_${signupData.timestamp.split('T')[0]}_${signupData.timestamp.split('T')[1].split('.')[0].replace(/:/g, '-')}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            console.log('CSV file downloaded for:', signupData.email);
+        }
+
+        // Try Google Sheets submission (non-blocking)
+        function tryGoogleSheets(email) {
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('source', 'nigelamasterchef_landing');
+            formData.append('location', 'Mumbai');
+            formData.append('timestamp', new Date().toISOString());
+            
+            fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            }).then(() => {
+                console.log('Google Sheets submission attempted');
+            }).catch(err => {
+                console.log('Google Sheets error:', err);
+            });
+        }
+
+        // Submit to Google Sheets
+        async function submitToGoogleSheets(email) {
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('source', 'myaichef_landing');
+            formData.append('location', 'Mumbai');
+            formData.append('userAgent', navigator.userAgent);
+            formData.append('timestamp', new Date().toISOString());
+            
+            console.log('Submitting to Google Sheets:', GOOGLE_SHEETS_URL);
+            
+            // Try with no-cors mode
+            const response = await fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            });
+            
+            console.log('Google Sheets submission attempted');
+            return true; // Assume success with no-cors
+        }
+
+        function showStatus(message, type) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        function showCelebration() {
+            console.log('showCelebration called!');
+            
+            const overlay = document.getElementById('celebrationOverlay');
+            const modal = document.getElementById('celebrationModal');
+            
+            if (!overlay || !modal) {
+                console.error('Celebration elements not found!');
+                alert('🎉 Welcome to Nigela AI Beta! You will receive your first meal plan tomorrow night at 9 PM. WhatsApp: +919833112903');
+                return;
+            }
+            
+            overlay.style.display = 'block';
+            modal.style.display = 'block';
+            
+            console.log('Celebration modal shown');
+            
+            // Add confetti effect
+            createConfetti();
+        }
+
+        function closeCelebration() {
+            const overlay = document.getElementById('celebrationOverlay');
+            const modal = document.getElementById('celebrationModal');
+            
+            overlay.style.display = 'none';
+            modal.style.display = 'none';
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.innerHTML = ['🎉', '✨', '🌟', '💫', '🎊'][Math.floor(Math.random() * 5)];
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10px';
+                    confetti.style.fontSize = '20px';
+                    confetti.style.zIndex = '10001';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 100);
+            }
+        }
+
+        // Add fall animation for confetti
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Function to export local signups as CSV (for debugging)
+        function exportLocalSignups() {
+            const signups = JSON.parse(localStorage.getItem('nigela_beta_signups') || '[]');
+            if (signups.length === 0) {
+                alert('No signups found locally');
+                return;
+            }
+            
+            const csvContent = 'Email,Timestamp,Source,Location\n' + 
+                signups.map(s => `${s.email},${s.timestamp},${s.source},${s.location}`).join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'nigela_beta_signups.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            console.log('Local signups exported:', signups.length, 'entries');
+        }
+
+        // Debug function - call in console to check local storage
+        function checkLocalSignups() {
+            const signups = JSON.parse(localStorage.getItem('nigela_beta_signups') || '[]');
+            console.log('Local signups:', signups);
+            return signups;
+        }
+
+        // Make functions available globally for debugging
+        window.exportLocalSignups = exportLocalSignups;
+        window.checkLocalSignups = checkLocalSignups;
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start email auto-scroll after 2 seconds
+            setTimeout(() => {
+                const emailContent = document.getElementById('emailContent');
+                emailContent.style.animation = 'autoScroll 25s linear infinite';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+[build]
+  # No build command needed - just serve static HTML
+  command = ""
+  
+  # Serve from root directory
+  publish = "."
+
+[build.environment]
+  # Don't try to install Python dependencies
+  PYTHON_VERSION = ""
+
+[[redirects]]
+  # Redirect root to index.html
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  # Security headers for the HTML file
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
