@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Celebration</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 50px; }
+        .test-button { padding: 20px; background: #000; color: white; border: none; cursor: pointer; }
+        
+        .celebration-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            display: none;
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #000;
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            z-index: 10000;
+            display: none;
+            max-width: 400px;
+        }
+        
+        .celebration-title { font-size: 24px; margin-bottom: 16px; }
+        .celebration-message { font-size: 14px; margin-bottom: 20px; }
+        .celebration-close { background: #333; color: white; border: none; padding: 8px 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Test Celebration Animation</h1>
+    <button class="test-button" onclick="testCelebration()">Test Celebration</button>
+    
+    <div class="celebration-overlay" id="celebrationOverlay"></div>
+    <div class="celebration" id="celebrationModal">
+        <div class="celebration-title">🎉 Welcome to Nigela AI Beta!</div>
+        <div class="celebration-message">
+            Thanks for registering! You will receive your first carbon-conscious, satvik meal plan <strong>tomorrow night at 9 PM</strong>.<br><br>
+            Keep an eye on your email for amazing AI-curated recipes!
+        </div>
+        <div style="font-size: 12px; color: #ccc; margin-top: 16px; padding-top: 16px; border-top: 1px solid #333;">
+            If you don't receive the email, send me a WhatsApp:<br>
+            <strong>+919833112903</strong><br>
+            We'll fix it within 24 hours!
+        </div>
+        <button class="celebration-close" onclick="closeCelebration()">Got it! ✨</button>
+    </div>
+    
+    <script>
+        function testCelebration() {
+            console.log('Testing celebration...');
+            showCelebration();
+        }
+        
+        function showCelebration() {
+            console.log('showCelebration called!');
+            
+            const overlay = document.getElementById('celebrationOverlay');
+            const modal = document.getElementById('celebrationModal');
+            
+            if (!overlay || !modal) {
+                console.error('Elements not found!');
+                alert('🎉 Welcome to Nigela AI Beta! Tomorrow night at 9 PM. WhatsApp: +919833112903');
+                return;
+            }
+            
+            overlay.style.display = 'block';
+            modal.style.display = 'block';
+            
+            console.log('Celebration modal shown');
+        }
+        
+        function closeCelebration() {
+            document.getElementById('celebrationOverlay').style.display = 'none';
+            document.getElementById('celebrationModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

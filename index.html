@@ -1197,8 +1197,19 @@
                 submitButton.innerHTML = 'Join Beta Program';
                 emailInput.value = '';
                 
-                console.log('Showing celebration...');
+                console.log('About to show celebration...');
+                
+                // Force show celebration with multiple attempts
                 showCelebration();
+                
+                // Fallback alert if modal doesn't show
+                setTimeout(() => {
+                    const modal = document.getElementById('celebrationModal');
+                    if (!modal || modal.style.display !== 'block') {
+                        console.log('Modal failed, showing alert fallback');
+                        alert('🎉 Welcome to Nigela AI Beta!\\n\\nThanks for registering! You will receive your first meal plan tomorrow night at 9 PM.\\n\\nKeep an eye on your email!\\n\\nIf you don\\'t receive the email, WhatsApp: +919833112903');
+                    }
+                }, 500);
             }, 1000);
         });
         
